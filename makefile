@@ -34,4 +34,4 @@ build/test/peres.o: src/peres.c src/foo.h
 	$(CC) $(CFLAGS) -c -I thirdparty -I src src/peres.c -o build/test/peres.o
 
 clean:
-	rm -rf build/*.o bin/geometry
+	rm -rf build/*.o bin/geometry bin/geometry_test
