@@ -2,7 +2,7 @@
 CC = gcc
 CFLAGS= -Wall -Werror
 EXECUTABLE = geometry
-all: bin/$(EXECUTABLE)
+all: bin/$(EXECUTABLE) bin/geometry_test
 
 bin/$(EXECUTABLE):build/my_prog.o build/perimetr.o build/square.o build/peres.o
 	$(CC) $(CFLAGS) build/my_prog.o build/perimetr.o build/square.o build/peres.o -lm -o bin/$(EXECUTABLE)
@@ -17,6 +17,21 @@ build/square.o: src/square.c
 
 build/peres.o: src/peres.c
 	$(CC) $(CFLAGS) src/peres.c -o build/peres.o -c -lm 
+
+bin/geometry_test: build/test/main.o build/test/square.o build/test/perimetr.o build/test/peres.o
+	$(CC) $(CFLAGS) build/test/main.o build/test/square.o build/test/perimetr.o build/test/peres.o -o bin/geometry_test -lm
 	
+build/test/main.o: test/main.c
+	$(CC) $(CFLAGS) -c -I thirdparty -I src test/main.c -o build/test/main.o
+
+build/test/square.o: src/square.c src/foo.h
+	$(CC) $(CFLAGS) -c -I thirdparty -I src src/square.c -o build/test/square.o
+	
+build/test/perimetr.o: src/perimetr.c src/foo.h
+	$(CC) $(CFLAGS) -c -I thirdparty -I src src/perimetr.c -o build/test/perimetr.o
+	
+build/test/peres.o: src/peres.c src/foo.h
+	$(CC) $(CFLAGS) -c -I thirdparty -I src src/peres.c -o build/test/peres.o
+
 clean:
 	rm -rf build/*.o bin/geometry
