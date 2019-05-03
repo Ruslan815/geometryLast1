@@ -1,8 +1,10 @@
 .PHONY: all clean
 CC = gcc
 CFLAGS= -Wall -Werror
+HEADER= -I thirdparty -I src
 EXECUTABLE = geometry
-all: bin/$(EXECUTABLE)
+EXECUTABLETEST = geometry-test
+all: bin/$(EXECUTABLE) bin/$(EXECUTABLETEST)
 
 bin/$(EXECUTABLE):build/my_prog.o build/perimetr.o build/square.o
 	$(CC) $(CFLAGS) build/my_prog.o build/perimetr.o build/square.o -lm -o bin/$(EXECUTABLE)
@@ -15,5 +17,11 @@ build/perimetr.o: src/perimetr.c
 build/square.o: src/square.c
 	$(CC) $(CFLAGS) src/square.c -o build/square.o -c -lm 
 
+bin/$(EXECUTABLETEST):build/main.o 
+	$(CC) $(CFLAGS) build/main.o -lm -o bin/$(EXECUTABLETEST)
+	
+build/main.o: test/main.c
+	$(CC) $(CFLAGS) -c $(HEADER) test/main.c -o build/main.o 
+
 clean:
-	rm -rf build/*.o bin/*.exe 
+	rm -rf build/*.o bin/geometry bin/geometry-test 
