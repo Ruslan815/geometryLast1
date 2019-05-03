@@ -1,0 +1,6 @@
+*.out
+*.o
+.*.swp
+*.c~
+geometry
+#*.c#
