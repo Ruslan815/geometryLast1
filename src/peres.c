@@ -1,9 +1,10 @@
-#include <math.h>
 #include "foo.h"
+#include <math.h>
 
-int peres(int x1, int y1, int r1, int x2, int y2, int r2){
-	int r, y, z, flag;
-	float x;
+int peres(int x1, int y1, int r1, int x2, int y2, int r2)
+{
+    int r, y, z, flag;
+    float x;
     flag = 0;
     r = r2;
     x = x2 - r;
@@ -11,8 +12,7 @@ int peres(int x1, int y1, int r1, int x2, int y2, int r2){
     z = sqrt(z);
     y = z + y2;
     while (x < (x2 + r)) {
-        if ((pow(x - x1, 2)) + (pow(y - y1, 2))
-            <= pow(r1, 2)) {
+        if ((pow(x - x1, 2)) + (pow(y - y1, 2)) <= pow(r1, 2)) {
             flag = 1;
             break;
         }
@@ -28,8 +28,7 @@ int peres(int x1, int y1, int r1, int x2, int y2, int r2){
     z *= -1;
     y = z + y2;
     while (x < (x2 + r)) {
-        if ((pow(x - x1, 2)) + (pow(y - y1, 2))
-            <= pow(r1, 2)) {
+        if ((pow(x - x1, 2)) + (pow(y - y1, 2)) <= pow(r1, 2)) {
             flag = 1;
             break;
         }

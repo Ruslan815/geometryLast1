@@ -19,7 +19,7 @@ CTEST(peres1__test, result_test)
     const double r2 = 2;
 
     // When
-    const double result = peres(x1,y1,r1,x2,y2,r2);
+    const double result = peres(x1, y1, r1, x2, y2, r2);
 
     // Then
     const double expected = 1;
@@ -37,7 +37,7 @@ CTEST(peres2__test, result_test)
     const double r2 = 2;
 
     // When
-    const double result = peres(x1,y1,r1,x2,y2,r2);
+    const double result = peres(x1, y1, r1, x2, y2, r2);
 
     // Then
     const double expected = 0;
