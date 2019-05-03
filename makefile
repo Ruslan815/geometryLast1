@@ -1,10 +1,8 @@
 .PHONY: all clean
 CC = gcc
 CFLAGS= -Wall -Werror
-HEADER= -I thirdparty -I src
-EXECUTABLE = geometry
-EXECUTABLETEST = geometry-test
-all: bin/$(EXECUTABLE) bin/$(EXECUTABLETEST)
+EXECUTABLE = geometry.exe
+all: bin/$(EXECUTABLE)
 
 bin/$(EXECUTABLE):build/my_prog.o build/perimetr.o build/square.o
 	$(CC) $(CFLAGS) build/my_prog.o build/perimetr.o build/square.o -lm -o bin/$(EXECUTABLE)
@@ -15,13 +13,20 @@ build/perimetr.o: src/perimetr.c
 	$(CC) $(CFLAGS) src/perimetr.c -o build/perimetr.o -c -lm 
 
 build/square.o: src/square.c
-	$(CC) $(CFLAGS) src/square.c -o build/square.o -c -lm 
+	$(CC) $(CFLAGS) src/square.c -o build/square.o -c -lm
+test: bin/geometry_test
 
-bin/$(EXECUTABLETEST):build/main.o 
-	$(CC) $(CFLAGS) build/main.o -lm -o bin/$(EXECUTABLETEST)
-	
-build/main.o: test/main.c
-	$(CC) $(CFLAGS) -c $(HEADER) test/main.c -o build/main.o 
+bin/geometry_test: build/test/main.o build/test/square.o build/test/perimetr.o build/test/peres.o
+	$(CC) $(CFLAGS) build/test/main.o build/test/square.o build/test/perimetr.o build/test/peres.o -o bin/geometry_test -lm
+build/test/main.o: test/main.c
+	$(CC) $(CFLAGS) -c -I thirdparty -I src test/main.c -o build/test/main.o
+
+build/test/square.o: src/square.o src/foo.h
+	$(CC) $(CFLAGS) -c -I thirdparty -I src src/square.c -o build/test/square.o
+build/test/perimetr.o: src/perimetr.o src/foo.h
+	$(CC) $(CFLAGS) -c -I thirdparty -I src src/perimetr.c -o build/test/perimetr.o
+build/test/peres.o: src/peres.o src/foo.h
+	$(CC) $(CFLAGS) -c -I thirdparty -I src src/peres.c -o build/test/peres.o
 
 clean:
-	rm -rf build/*.o bin/geometry bin/geometry-test 
+	rm -rf build/*.o bin/*.exe
