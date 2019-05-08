@@ -22,7 +22,7 @@ CTEST(peres1__test, result_test)
     const double result = peres(x1, y1, r1, x2, y2, r2);
 
     // Then
-    const double expected = 2;
+    const double expected = 1;
     ASSERT_EQUAL(expected, result);
 }
 
